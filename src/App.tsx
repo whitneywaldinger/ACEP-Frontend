@@ -32,9 +32,6 @@ const config: SearchDriverOptions = {
   searchQuery: {
     result_fields: {
       title: { raw: {} },
-      author: { raw: {} },
-      date_published: { raw: {} },
-      body_text: { raw: {} }
     },
     disjunctiveFacets: ["author", "date_published"],
     facets: {
@@ -49,7 +46,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>ACEP Capstone UI</h1>
+      <h1 className="App-title">ACEP Capstone UI</h1>
         <img src="acep-logo.png" className="App-logo" alt="ACEP Logo" />
       </header>
 

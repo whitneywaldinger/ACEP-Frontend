@@ -1,22 +1,16 @@
-import logo from './logo.svg';
+import logo from './logo.svg'; // You can remove this line if you're not using the logo
 import './App.css';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <h1 className="App-title">ACEP Capstone UI</h1>
+      <img src="acep-logo.png" className="App-logo" alt="ACEP Logo" />
+      <button onClick={() => { 
+          // Navigate to the new page
+          window.location.href = 'https://www.google.com';
+      }}>Begin Search</button>
       </header>
     </div>
   );

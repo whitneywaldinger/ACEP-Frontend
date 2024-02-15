@@ -63,9 +63,10 @@ const config: SearchDriverOptions = {
       description: {},
       states: {}
     },
-    disjunctiveFacets: ["states"],
+    disjunctiveFacets: ["states", "author"],
     facets: {
       states: { type: "value", size: 30 },
+      author: { type: "value", size: 30 },
       acres: {
         type: "range",
         ranges: [
@@ -125,6 +126,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+      <h1>ACEP Capstone UI</h1>
         <img src="acep-logo.png" className="App-logo" alt="ACEP Logo" />
       </header>
 
@@ -161,12 +163,10 @@ function App() {
                           <Facet
                             field="world_heritage_site"
                             label="World Heritage Site?"
-                            //view={BooleanFacet}
                           />
                           <Facet
                             field="visitors"
                             label="Visitors"
-                            //view={SingleLinksFacet}
                           />
                           <Facet
                             field="date_established"
@@ -179,7 +179,18 @@ function App() {
                           <Facet
                             field="acres"
                             label="Acres"
-                            //view={SingleSelectFacet}
+                          />
+                          <Facet
+                            field="author"
+                            label="Author"
+                          />
+                          <Facet
+                            field="date"
+                            label="Date Published"
+                          />
+                          <Facet
+                            field="source"
+                            label="Source"
                           />
                         </div>
                       }

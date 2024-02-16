@@ -1,29 +1,24 @@
 .App {
-  text-align: left;
+  text-align: left; /* Center align the text content of the App component */
 }
 
 .App-header {
   background-color: white;
-  min-height: 25vh;
+  min-height: 20vh;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column; /* Align items vertically */
+  justify-content: center; /* Center content horizontally and vertically */
   padding: 20px;
+  position: relative; /* Make the header a positioning context for absolute positioning */
 }
 
 .App-title {
   text-align: center;
-  margin: 0;
+  margin-top: 10px; /* Adjust spacing between title and logo */
 }
 
 .App-logo {
   position: absolute;
-  top: 10px; /* Adjust as needed */
-  right: 10px; /* Adjust as needed */
-}
-
-@media (max-width: 800px) {
-  .App-header {
-    flex-direction: column;
-  }
+  top: 10px;
+  right: 20px;
 }

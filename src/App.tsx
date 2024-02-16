@@ -17,6 +17,9 @@ import "@elastic/react-search-ui-views/lib/styles/styles.css";
 import { SearchDriverOptions } from "@elastic/search-ui";
 import AppSearchAPIConnector from "@elastic/search-ui-app-search-connector";
 
+
+import './App.css';
+
 // Create AppSearchAPIConnector instance with deployment details
 const connector = new AppSearchAPIConnector({
   searchKey: "search-3u75tk5qahmdf94sr4q567wy", // Replace with your search key
@@ -46,8 +49,8 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-      <h1 className="App-title">ACEP Capstone UI</h1>
-        <img src="acep-logo.png" className="App-logo" alt="ACEP Logo" />
+          <img src="acep-logo.png" className="App-logo" alt="ACEP Logo" />
+          <h1 className="App-title">ACEP Capstone UI</h1>
       </header>
 
       {/* Search Section */}

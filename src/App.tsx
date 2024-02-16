@@ -7,6 +7,7 @@ import {
   PagingInfo,
   ResultsPerPage,
   Paging,
+  Sorting,
   WithSearch,
   Facet // Import Facet component
 } from "@elastic/react-search-ui";
@@ -19,6 +20,8 @@ import AppSearchAPIConnector from "@elastic/search-ui-app-search-connector";
 
 
 import './App.css';
+
+
 
 // Create AppSearchAPIConnector instance with deployment details
 const connector = new AppSearchAPIConnector({
@@ -68,9 +71,28 @@ function App() {
                   <ErrorBoundary>
                     <Layout
                       header={<SearchBox debounceLength={0} />}
-                      bodyContent={<Results titleField="title" />}
+                      bodyContent={<Results titleField="title"/>}
                       sideContent={
                         <div>
+                          <Sorting
+                            sortOptions={[
+                              {
+                                name: "Relevance",
+                                value: "",
+                                direction: ""
+                              },
+                              {
+                                name: "Title",
+                                value: "title",
+                                direction: "asc"
+                              }, 
+                              {
+                                name: "Date",
+                                value: "date_published",
+                                direction: "desc"
+                              }
+                            ]}
+                          />
                           <Facet
                             field="author"
                             label="Author"
@@ -101,5 +123,6 @@ function App() {
     </div>
   );
 }
+
 
 export default App;

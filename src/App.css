@@ -8,7 +8,6 @@
   display: flex;
   justify-content: center;
   align-items: center; /* Vertically center align items */
-
   position: relative; /* Make the header a positioning context for absolute positioning */
 }
 

@@ -38,7 +38,8 @@ const config: SearchDriverOptions = {
   searchQuery: {
     result_fields: {
       title: { raw: {} },
-      author: {raw: {} }
+      author: {raw: {} },
+      body_text: {raw: {}}
     },
     disjunctiveFacets: ["author", "date_published"],
     facets: {
@@ -72,7 +73,7 @@ function App() {
                   <ErrorBoundary>
                     <Layout
                       header={<SearchBox debounceLength={0} />}
-                      bodyContent={<Results titleField="title" urlField="https://www.google.com" />}
+                      bodyContent={<Results titleField="title" urlField="url" />}
                       sideContent={
                         <div>
                           <Sorting

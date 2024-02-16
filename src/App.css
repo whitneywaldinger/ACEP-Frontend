@@ -4,17 +4,17 @@
 
 .App-header {
   background-color: white;
-  min-height: 20vh;
+  min-height: 30vh;
   display: flex;
-  flex-direction: column; /* Align items vertically */
-  justify-content: center; /* Center content horizontally and vertically */
-  padding: 20px;
+  justify-content: center;
+  align-items: center; /* Vertically center align items */
+
   position: relative; /* Make the header a positioning context for absolute positioning */
 }
 
 .App-title {
   text-align: center;
-  margin-top: 10px; /* Adjust spacing between title and logo */
+  font-size: 48px;
 }
 
 .App-logo {

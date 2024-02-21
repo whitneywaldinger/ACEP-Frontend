@@ -2,9 +2,11 @@ import React from "react";
 import "./index.css";
 import {
     ErrorBoundary,
-    Facet, Paging,
+    Facet,
+    Paging,
     PagingInfo,
-    Results, ResultsPerPage,
+    Results,
+    ResultsPerPage,
     SearchBox,
     SearchProvider,
     Sorting,
@@ -12,10 +14,10 @@ import {
 } from "@elastic/react-search-ui";
 import "@elastic/react-search-ui-views/lib/styles/styles.css";
 import { SearchDriverOptions } from "@elastic/search-ui";
-import {Layout} from "@elastic/react-search-ui-views";
+import { Layout } from "@elastic/react-search-ui-views";
 import AppSearchAPIConnector from "@elastic/search-ui-app-search-connector";
 
-function Search(){
+function Search() {
     // Create AppSearchAPIConnector instance with deployment details
     const connector = new AppSearchAPIConnector({
         searchKey: "search-3u75tk5qahmdf94sr4q567wy", // Replace with your search key
@@ -31,8 +33,9 @@ function Search(){
         searchQuery: {
             result_fields: {
                 title: { raw: {} },
-                author: {raw: {} },
-                body_text: {raw: {}}
+                author: { raw: {} },
+                body_text: { raw: {} },
+                url: { raw: {} }
             },
             disjunctiveFacets: ["author", "date_published"],
             facets: {
@@ -57,7 +60,12 @@ function Search(){
                                 <ErrorBoundary>
                                     <Layout
                                         header={<SearchBox debounceLength={0} />}
-                                        bodyContent={<Results titleField="title" urlField="url" />}
+                                        bodyContent={
+                                            <Results
+                                                titleField="title"
+                                                urlField="url"
+                                            />
+                                        }
                                         sideContent={
                                             <div>
                                                 <Sorting

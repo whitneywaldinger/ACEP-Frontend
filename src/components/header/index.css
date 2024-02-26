@@ -2,24 +2,25 @@
     background-color: white;
     min-height: 30vh;
     display: flex;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center; /* Vertically center align items */
     position: relative; /* Make the header a positioning context for absolute positioning */
 
     .App-title {
         text-align: center;
-        font-size: 48px;
+        font-size: 56px;
     }
 
     .App-logo {
-        position: absolute;
-        top: 10px;
+        position: relative;
+        /*top: 10px;*/
         right: 20px;
     }
 
     .App-documentation {
-        position: absolute;
-        top: 10px;
+        position: relative;
+        /*top: 10px;*/
         left: 20px;
     }
 

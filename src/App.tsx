@@ -3,7 +3,7 @@ import "@elastic/react-search-ui-views/lib/styles/styles.css";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import './App.css';
 import HomePage from "./pages/home";
-import {Router} from "react-router-dom";
+import Documentation from "./pages/documentation";
 
 
 
@@ -12,7 +12,10 @@ function App() {
   return (
     <div className="App">
         <div className="page">
-            <HomePage/>
+            <Routes>
+                <Route path="/" element={<HomePage/>} />
+                <Route path="/docs" element={<Documentation/>} />
+            </Routes>
         </div>
     </div>
   );

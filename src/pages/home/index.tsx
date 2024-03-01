@@ -10,6 +10,7 @@ function HomePage(){
             <div className="header">
                 <Header/>
             </div>
+
             {/* Search Section */}
             <Search/>
         </div>

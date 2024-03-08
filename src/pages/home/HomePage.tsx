@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Input } from "./input";
-import { Button } from "./button";
+import { Input } from "../../components/Chat/input";
+import { Button } from "../../components/Chat/button";
 import "./HomePage.css";
-import logoImage from "./acep-logo.png"
+import logoImage from "../../acep-logo.png"
 
 function GithubIcon(props) {
   return (
@@ -35,8 +35,14 @@ export default function Component() {
   };
 
   const handleSend = async () => {
+    // Append user's message first
+    const userMessage = userInput;
+    setResponses((prevResponses) => [
+        ...prevResponses,
+        {text: userMessage, sender: "user"},
+    ]);
+
     try {
-      const userMessage = userInput;
       const response = await axios.post("http://127.0.0.1:5000/sendquery", { text: userInput });
       setResponses((prevResponses) => [
         ...prevResponses,
@@ -45,6 +51,10 @@ export default function Component() {
       ]);
       setUserInput(""); // Clear input after sending
     } catch (error) {
+      setResponses((prevResponses) => [
+        ...prevResponses,
+        { text: "Failed to get responses from LLM.", sender: "bot" },
+      ]);
       console.error("Error sending message:", error);
     }
   };

@@ -1,8 +1,7 @@
 import React from "react";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import './App.css';
-import ComponentPage from "./HomePage";
-import {Router} from "react-router-dom";
+import ComponentPage from "./pages/home/HomePage";
 
 
 
@@ -12,9 +11,10 @@ function App() {
   return ( 
     <div className="App">
         <div className="page">
-            <ComponentPage/>
+            <Routes>
+                <Route path="/" element={<ComponentPage/>} />
+            </Routes>
         </div>
-        
     </div>
   );
 }

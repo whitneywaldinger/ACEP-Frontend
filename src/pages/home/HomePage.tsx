@@ -73,11 +73,11 @@ export default function Component() {
       <main className="mx-auto mt-10 max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center">
           <h1 className="text-3xl font-bold text-black">Welcome to Our ACEP Chatbot</h1>
-          <div className="absolute bottom-12 mt-6 mb-12 w-full rounded-md bg-white p-6 shadow" style={{ width: '1200px', maxHeight: '1050px', overflowY: 'auto' }}>
-            <div className="flex flex-col-reverse space-y-4" style={{ minHeight: '100%' }}>
+          <div className="absolute bottom-12 mt-6 mb-12 w-full rounded-md bg-white p-6 shadow" style={{ width: '1200px', height: '1050px', overflowY: 'auto' }}>
+            <div className="flex flex-col-reverse " style={{ minHeight: '100%' }}>
               {responses.map((response, index) => (
                 <div key={index} className={`flex items-center space-x-4 ${response.sender === "user" ? "justify-end" : ""}`}>
-                  <div className={`rounded-md p-4 ${response.sender === "bot" ? "bg-gray-100" : "bg-blue-100"}`}>
+                  <div className={`rounded-md p-4 mb-2 ${response.sender === "bot" ? "bg-gray-100" : "bg-blue-100"}`}>
                     <p className={`text-sm ${response.sender === "bot" ? "text-gray-600" : "text-blue-800"}`}>{response.text}</p>
                   </div>
                 </div>

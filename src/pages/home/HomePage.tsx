@@ -45,15 +45,17 @@ export default function Component() {
     try {
       const response = await axios.post("http://127.0.0.1:5000/sendquery", { text: userInput });
       setResponses((prevResponses) => [
-        { text: response.data.response, sender: "bot" },
-        { text: userMessage, sender: "user" },
         ...prevResponses,
+        { text: userMessage, sender: "user" },
+        { text: response.data.response, sender: "bot" },
+        
       ]);
       setUserInput(""); // Clear input after sending
     } catch (error) {
       setResponses((prevResponses) => [
-        { text: "Failed to get responses from LLM.", sender: "bot" },
         ...prevResponses,
+        { text: "Failed to get responses from LLM.", sender: "bot" },
+        
       ]);
       console.error("Error sending message:", error);
     }

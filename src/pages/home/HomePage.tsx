@@ -35,19 +35,13 @@ export default function Component() {
   };
 
   const handleSend = async () => {
-    // Append user's message first
     const userMessage = userInput;
-    setResponses((prevResponses) => [
-        ...prevResponses,
-        {text: userMessage, sender: "user"},
-    ]);
-
     try {
       const response = await axios.post("http://127.0.0.1:5000/sendquery", { text: userInput });
       setResponses((prevResponses) => [
-        ...prevResponses,
-        { text: userMessage, sender: "user" },
         { text: response.data.response, sender: "bot" },
+        { text: userMessage, sender: "user" },
+        ...prevResponses,
         
       ]);
       setUserInput(""); // Clear input after sending
@@ -97,4 +91,3 @@ export default function Component() {
     </div>
   );
 }
-

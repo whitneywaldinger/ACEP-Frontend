@@ -45,22 +45,22 @@ export default function Component() {
     try {
       const response = await axios.post("http://127.0.0.1:5000/sendquery", { text: userInput });
       setResponses((prevResponses) => [
-        ...prevResponses,
-        { text: userMessage, sender: "user" },
         { text: response.data.response, sender: "bot" },
+        { text: userMessage, sender: "user" },
+        ...prevResponses,
       ]);
       setUserInput(""); // Clear input after sending
     } catch (error) {
       setResponses((prevResponses) => [
-        ...prevResponses,
         { text: "Failed to get responses from LLM.", sender: "bot" },
+        ...prevResponses,
       ]);
       console.error("Error sending message:", error);
     }
   };
 
-  return (
-    <div className="min-h-screen bg-[#f0f4f8]">
+    return (
+    <div className="min-h-screen bg-light-gray">
       <header className="bg-white py-4">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <img alt="Logo" className="h-14 w-auto" src ={logoImage} />
@@ -72,10 +72,9 @@ export default function Component() {
       </header>
       <main className="mx-auto mt-10 max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center">
-          <h1 className="text-3xl font-bold text-gray-800">Welcome to Our ACEP Chatbot</h1>
-          <p className="mt-2 text-lg text-gray-600">How can we assist you today</p>
-          <div className="mt-6 w-full rounded-md bg-white p-6 shadow">
-            <div className="flex flex-col space-y-4">
+          <h1 className="text-3xl font-bold text-black">Welcome to Our ACEP Chatbot</h1>
+          <div className="absolute bottom-12 mt-6 mb-12 w-full rounded-md bg-white p-6 shadow" style={{ width: '1200px', maxHeight: '1050px', overflowY: 'auto' }}>
+            <div className="flex flex-col-reverse space-y-4" style={{ minHeight: '100%' }}>
               {responses.map((response, index) => (
                 <div key={index} className={`flex items-center space-x-4 ${response.sender === "user" ? "justify-end" : ""}`}>
                   <div className={`rounded-md p-4 ${response.sender === "bot" ? "bg-gray-100" : "bg-blue-100"}`}>
@@ -83,10 +82,12 @@ export default function Component() {
                   </div>
                 </div>
               ))}
-              <div className="flex items-center space-x-2">
+            </div>
+          </div>
+          <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 bg-white rounded-md p-6 shadow" style={{ width: '1200px' }}>
+            <div className="flex items-center space-x-2">
                 <Input value={userInput} onChange={handleInputChange} placeholder="Type your message here..." />
                 <Button onClick={handleSend} disabled={!userInput.trim()}>Send</Button>
-              </div>
             </div>
           </div>
         </div>

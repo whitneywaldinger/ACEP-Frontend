@@ -7,7 +7,7 @@ import logoImage from "../../acep-logo.png"
 
 
 
-function GithubIcon(props) {
+function GithubIcon(props) { 
   return (
     <svg
       {...props}

@@ -29,9 +29,10 @@ function GithubIcon(props) {
 export default function Component() {
   const [userInput, setUserInput] = useState("");
   const [responses, setResponses] = useState([
-    { text: "Hello! I'm here to help you. What would you like to know?", sender: "bot" },
+    { text: "Hello! I'm here to help you. What would you like to know?", sender: "bot"},
   ]);
-  const [sources, setSources] = useState("");
+  const [sources, setSources] = useState([]);
+
 
   const handleInputChange = (event) => {
     setUserInput(event.target.value);
@@ -42,14 +43,16 @@ export default function Component() {
     try {
       const response = await axios.post("http://127.0.0.1:5000/sendquery", { text: userInput });
       setResponses((prevResponses) => [
-        { text: response.data.response + " \n" + response.data.source, sender: "bot" },
-        { text: userMessage, sender: "user" },
+        { text: response.data.response, sender: "bot"},
+        { text: userMessage, sender: "user"},
         ...prevResponses,
       ]);
+      setSources(response.data.sources);
       setUserInput(""); // Clear input after sending
     } catch (error) {
       setResponses((prevResponses) => [
-        { text: "Failed to get responses from LLM.", sender: "bot" },
+        { text: "Failed to get responses from LLM.", sender: "bot"},
+        { text: userMessage, sender: "user"},
         ...prevResponses,
       ]);
       console.error("Error sending message:", error);
@@ -58,6 +61,7 @@ export default function Component() {
 
     return (
     <div className="min-h-screen bg-gray">
+      
       <header className="bg-white py-4">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <img alt="Logo" className="h-14 w-auto" src ={logoImage} />
@@ -70,12 +74,26 @@ export default function Component() {
       <main className="mx-auto mt-10 max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center">
           <h1 className="text-3xl font-bold text-black">Welcome to Our ACEP Chatbot</h1>
-          <div className="mt-6 mb-12 w-full rounded-md bg-white p-6 shadow" style={{ width: '1200px', maxHeight: '1050px', overflowY: 'auto' }}>
+          <div className="mt-6 mb-12 w-full rounded-md bg-white p-6 shadow" style={{ maxWidth: '1200px', maxHeight: '1050px', overflowY: 'auto' }}>
             <div className="flex flex-col-reverse " style={{ minHeight: '100%' }}>
               {responses.map((response, index) => (
                 <div key={index} className={`flex items-center space-x-4 ${response.sender === "user" ? "justify-end" : ""}`}>
                   <div className={`rounded-md p-4 mb-2 ${response.sender === "bot" ? "bg-gray-100" : "bg-blue-100"}`}>
-                    <p className={`text-sm ${response.sender === "bot" ? "text-gray-600" : "text-blue-800"}`}>{response.text}</p>
+                    <p className={`text-sm ${response.sender === "bot" ? "text-gray-900" : "text-blue-800"}`}>{response.text}</p>
+                    {response.sender === "bot" && (
+                      <div className="source-list">
+                        <br />
+                        <p className="text-sm text-gray-600"> Sources: </p>
+                        {sources.map((source, index) => (
+                          <p key={index} className="text-sm text-gray-600" style={{ textDecoration: 'underline' }}>
+                            {/*<a href={`https:///Users/whitneywaldinger/Back-End/Backend/LLM_work/source/${source}`} rel="noopener noreferrer" target="_blank">
+                              {source}
+                        </a> */}
+                            <a href="https://drive.google.com/file/d/1-B0-IGiE44OJ2_WEQ11LTsJN6x_OTFa2/view?usp=sharing" rel="noopener noreferrer" target="_blank">{source[0]} on page {source[1]}</a>
+                          </p>
+                        ))}
+                    </div>
+                    )}
                   </div>
                 </div>
               ))}

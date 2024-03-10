@@ -5,6 +5,8 @@ import { Button } from "../../components/Chat/button";
 import "./HomePage.css";
 import logoImage from "../../acep-logo.png"
 
+
+
 function GithubIcon(props) {
   return (
     <svg
@@ -29,6 +31,7 @@ export default function Component() {
   const [responses, setResponses] = useState([
     { text: "Hello! I'm here to help you. What would you like to know?", sender: "bot" },
   ]);
+  const [sources, setSources] = useState("");
 
   const handleInputChange = (event) => {
     setUserInput(event.target.value);
@@ -39,17 +42,15 @@ export default function Component() {
     try {
       const response = await axios.post("http://127.0.0.1:5000/sendquery", { text: userInput });
       setResponses((prevResponses) => [
-        { text: response.data.response, sender: "bot" },
+        { text: response.data.response + " \n" + response.data.source, sender: "bot" },
         { text: userMessage, sender: "user" },
         ...prevResponses,
-        
       ]);
       setUserInput(""); // Clear input after sending
     } catch (error) {
       setResponses((prevResponses) => [
-        ...prevResponses,
         { text: "Failed to get responses from LLM.", sender: "bot" },
-        
+        ...prevResponses,
       ]);
       console.error("Error sending message:", error);
     }
@@ -69,7 +70,7 @@ export default function Component() {
       <main className="mx-auto mt-10 max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center">
           <h1 className="text-3xl font-bold text-black">Welcome to Our ACEP Chatbot</h1>
-          <div className="absolute bottom-12 mt-6 mb-12 w-full rounded-md bg-white p-6 shadow" style={{ width: '1200px', maxHeight: '1050px', overflowY: 'auto' }}>
+          <div className="mt-6 mb-12 w-full rounded-md bg-white p-6 shadow" style={{ width: '1200px', maxHeight: '1050px', overflowY: 'auto' }}>
             <div className="flex flex-col-reverse " style={{ minHeight: '100%' }}>
               {responses.map((response, index) => (
                 <div key={index} className={`flex items-center space-x-4 ${response.sender === "user" ? "justify-end" : ""}`}>

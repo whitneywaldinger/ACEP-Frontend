@@ -7,7 +7,7 @@ import logoImage from "../../acep-logo.png"
 
 
 
-function GithubIcon(props) { 
+function GithubIcon(props) {
   return (
     <svg
       {...props}
@@ -29,9 +29,12 @@ function GithubIcon(props) {
 export default function Component() {
   const [userInput, setUserInput] = useState("");
   const [responses, setResponses] = useState([
-    { text: "Hello! I'm here to help you. What would you like to know?", sender: "bot"},
+    {
+      text: "Hello! I'm here to help you. What would you like to know?",
+      sender: "bot",
+      sources: [] // Initialize sources for each response
+    },
   ]);
-  const [sources, setSources] = useState([]);
 
 
   const handleInputChange = (event) => {
@@ -43,16 +46,19 @@ export default function Component() {
     try {
       const response = await axios.post("http://127.0.0.1:5000/sendquery", { text: userInput });
       setResponses((prevResponses) => [
-        { text: response.data.response, sender: "bot"},
-        { text: userMessage, sender: "user"},
+        {
+          text: response.data.response,
+          sender: "bot",
+          sources: response.data.sources // Include sources with the response
+        },
+        { text: userMessage, sender: "user" , sources: []},
         ...prevResponses,
       ]);
-      setSources(response.data.sources);
       setUserInput(""); // Clear input after sending
     } catch (error) {
       setResponses((prevResponses) => [
-        { text: "Failed to get responses from LLM.", sender: "bot"},
-        { text: userMessage, sender: "user"},
+        { text: "Failed to get responses from LLM.", sender: "bot", sources: [] },
+        { text: userMessage, sender: "user", sources: [] },
         ...prevResponses,
       ]);
       console.error("Error sending message:", error);
@@ -76,23 +82,20 @@ export default function Component() {
           <h1 className="text-3xl font-bold text-black">Welcome to Our ACEP Chatbot</h1>
           <div className="mt-6 mb-12 w-full rounded-md bg-white p-6 shadow" style={{ maxWidth: '1200px', maxHeight: '1050px', overflowY: 'auto' }}>
             <div className="flex flex-col-reverse " style={{ minHeight: '100%' }}>
-              {responses.map((response, index) => (
+            {responses.map((response, index) => (
                 <div key={index} className={`flex items-center space-x-4 ${response.sender === "user" ? "justify-end" : ""}`}>
                   <div className={`rounded-md p-4 mb-2 ${response.sender === "bot" ? "bg-gray-100" : "bg-blue-100"}`}>
                     <p className={`text-sm ${response.sender === "bot" ? "text-gray-900" : "text-blue-800"}`}>{response.text}</p>
-                    {response.sender === "bot" && (
+                    {response.sender === "bot" && response.sources.length > 0 && (
                       <div className="source-list">
                         <br />
                         <p className="text-sm text-gray-600"> Sources: </p>
-                        {sources.map((source, index) => (
+                        {response.sources.map((source, index) => (
                           <p key={index} className="text-sm text-gray-600" style={{ textDecoration: 'underline' }}>
-                            {/*<a href={`https:///Users/whitneywaldinger/Back-End/Backend/LLM_work/source/${source}`} rel="noopener noreferrer" target="_blank">
-                              {source}
-                        </a> */}
-                            <a href="https://drive.google.com/file/d/1-B0-IGiE44OJ2_WEQ11LTsJN6x_OTFa2/view?usp=sharing" rel="noopener noreferrer" target="_blank">{source[0]} on page {source[1]}</a>
+                            <a href={`https://drive.google.com/file/d/${source[0]}/view?usp=sharing`} rel="noopener noreferrer" target="_blank">{source[0]} on page {source[1]}</a>
                           </p>
                         ))}
-                    </div>
+                      </div>
                     )}
                   </div>
                 </div>

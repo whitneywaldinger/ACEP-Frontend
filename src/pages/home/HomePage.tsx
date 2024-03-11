@@ -70,7 +70,9 @@ export default function Component() {
       
       <header className="bg-white py-4">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-          <img alt="Logo" className="h-14 w-auto" src ={logoImage} />
+          <a href="https://www.uaf.edu/acep/">
+            <img alt="Logo" className="h-14 w-auto" src={logoImage} />
+          </a>
           <a className="flex items-center space-x-2 text-gray-600 hover:text-gray-900" href="https://github.com/whitneywaldinger/ACEP-Frontend" rel="noopener noreferrer" target="_blank">
             <GithubIcon className="h-6 w-6" />
             <span>GitHub</span>
@@ -92,7 +94,7 @@ export default function Component() {
                         <p className="text-sm text-gray-600"> Sources: </p>
                         {response.sources.map((source, index) => (
                           <p key={index} className="text-sm text-gray-600" style={{ textDecoration: 'underline' }}>
-                            <a href={`https://drive.google.com/file/d/${source[0]}/view?usp=sharing`} rel="noopener noreferrer" target="_blank">{source[0]} on page {source[1]}</a>
+                            <a href={source[0] === "text_file_1.pdf" ? `https://drive.google.com/file/d/19_zABcxMESJdeNwcqsvgP9sfR-YhSvod/view?usp=drive_link` : 'https://drive.google.com/file/d/1Vwo1UwaWrY3KViHvKbATBYDYAOk6imsy/view?usp=drive_link'} rel="noopener noreferrer" target="_blank">{source[0]} on page {source[1]}</a>
                           </p>
                         ))}
                       </div>
